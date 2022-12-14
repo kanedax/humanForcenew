@@ -13,19 +13,17 @@ const initialValues = {
     personalCode: "",
     nationalId: "",
     idCode: "",
-    mobileNumber:{
-        value:""
-    },
+    mobileNumber: "",
     dateOfBirth: "",
-    degree: "",
+    degree: 0,
     major: "",
     password: "",
     email: "",
-    gender: "",
-    militaryStatus: "",
+    gender: 0,
+    militaryStatus: 0,
     isArmy: false,
-    description:"",
-    email:"",
+    description: "",
+    email: "",
 
 }
 
@@ -33,20 +31,22 @@ const onSubmit = async (values, actions) => {
 
     const loginToken = JSON.parse(localStorage.getItem("loginToken"));
     const token = loginToken.data.token;
-    await axios.post('http://45.138.135.108:8080/api/Users' , values, 
-        {headers:{
-            Authorization : `Bearer ${token}`,
-            'Content-Type': 'application/json',
-            "accept": "text/plain",
-        }}
-    ).then(res=>{
-        if (res.status == 201) {
+    await axios.post('http://45.138.135.108:8080/api/Users', values,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json;charset=UTF-8',
+            }
+        }
+    ).then(res => {
+        if (res.status == 200) {
             Alert('انجام شد', 'پرسنل جدید با موفقیت ثبت گردید', 'success')
             actions.resetForm();
-        }else{
+        } else {
             Alert('متاسفم', 'عملیات با خطا مواجه گردید', 'warning')
+
         }
-    }).catch(err=>{
+    }).catch(err => {
         console.log(err.message);
         Alert('متاسفم', 'خطا از سمت سرور', 'error')
 
@@ -89,6 +89,29 @@ const validationSchema = Yup.object({
     isArmy: Yup.boolean(),
 })
 
+const gender = [
+    { id: 0, value: "لطفا انتخاب کنید" },
+    { id: 1, value: "مرد" },
+    { id: 2, value: "زن" },
+]
+
+const educations = [
+    { id: 0, value: "لطفا انتخاب کنید" },
+    { id: 1, value: "دیپلم" },
+    { id: 2, value: "فوق دیپلم" },
+    { id: 3, value: "لیسانس" },
+    { id: 4, value: "فوق لیسانس" },
+    { id: 5, value: "دکترا" },
+    { id: 6, value: "دکترای تخصصی" },
+]
+
+const military = [
+    { id: 0, value: "لطفا انتخاب کنید" },
+    { id: 1, value: "معافیت پزشکی" },
+    { id: 2, value: "در حال تحصیل" },
+    { id: 3, value: "خدمت زیر پرچم" },
+    { id: 4, value: "معافیت دائم" },
+]
 
 const RegisterForm = () => {
     useEffect(() => {
@@ -102,7 +125,6 @@ const RegisterForm = () => {
         >
             {
                 (formik) => {
-                    console.log(formik.values);
                     return (
                         <Form className='main-section'>
                             <div className="form-container">
@@ -148,7 +170,7 @@ const RegisterForm = () => {
                                     />
                                     <FormikControl
                                         control="input1"
-                                        name="mobileNumber.value"
+                                        name="mobileNumber"
                                         type="text"
                                         className="validate"
                                         title="شماره موبایل"
@@ -175,34 +197,22 @@ const RegisterForm = () => {
                                         title="رمز عبور"
                                     />
                                     <FormikControl
-                                        control="select2"
+                                        control="select"
                                         name="degree"
                                         label="مدرک تحصیلی"
-                                        option1="لطفا انتخاب کنید..."
-                                        option2="دیپلم"
-                                        option3="فوق دیپلم"
-                                        option4="لیسانس"
-                                        option5="فوق لیسانس"
-                                        option6="دکترا"
-                                        option7="دکترای تخصصی"
+                                        options={educations}
                                     />
                                     <FormikControl
                                         control="select"
                                         name="gender"
                                         label="جنسیت"
-                                        option1="لطفا انتخاب کنید..."
-                                        option2="مرد"
-                                        option3="زن"
+                                        options={gender}
                                     />
                                     <FormikControl
-                                        control="select3"
+                                        control="select"
                                         name="militaryStatus"
                                         label="وضعیت نظام وظیفه"
-                                        option1="لطفا انتخاب کنید..."
-                                        option2="در حال تحصیل"
-                                        option3="معافیت پزشکی"
-                                        option4="خدمت زیر پرچم"
-                                        option5="معافیت"
+                                        options={military}
                                     />
                                     <FormikControl
                                         control="switch"

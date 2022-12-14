@@ -1,10 +1,11 @@
 import { Form, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
-import axios from 'axios';
+
 import { useNavigate } from 'react-router-dom';
 import FormikControl from '../../Components/Formik/FormikControl';
 import { Alert } from '../../Components/Alert/Alert';
+import { loginService } from '../../Services/auth';
 
 
 const initialValues = {
@@ -13,19 +14,23 @@ const initialValues = {
 }
 
 const onSubmit = async (values, submitMethods, navigate) => {
-   await axios.post('http://45.138.135.108:8080/api/Auth/login' , values).then(res=>{
-        if(res.status == 200){
-            localStorage.setItem('loginToken', JSON.stringify(res.data));
-            navigate('/');
-            Alert("خوش آمدید", "شما با موفقیت وارد شدید", "success")
-            submitMethods.setSubmitting(false)
-        }else{
-            Alert("متاسفم!", "مشخصات وارد شده صحیح نمیباشد.", "warning")
-            submitMethods.setSubmitting(false)
-        }
-   }).catch(error=>{
-    Alert("متاسفم", "ایرادی از سمت سرور رخ داده است", "success")
-   })
+    try {
+       const res = await loginService(values) 
+       if(res.status == 200){
+           localStorage.setItem('loginToken', JSON.stringify(res.data));
+           navigate('/');
+           Alert("خوش آمدید", res.data.metaData.message, "success")
+           submitMethods.setSubmitting(false)
+       }else{
+           Alert("متاسفم!", "مشخصات وارد شده صحیح نمیباشد.", "warning")
+           submitMethods.setSubmitting(false)
+       }
+    
+   } catch (error) {
+    
+       Alert("متاسفم", "ایرادی از سمت سرور رخ داده است", "error")
+   }
+
 }
 
 const validationSchema = Yup.object({

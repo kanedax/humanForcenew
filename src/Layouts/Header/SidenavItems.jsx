@@ -5,19 +5,19 @@ const SidenavItems = () => {
     return (
         <div className='sidenav-container'>
             <li >
-                <Link >
-                <i className='fa-regular fa-user sidenav-icon'></i>                   
+                <Link to={'/employmanagement'} >
+                <i className='fa-solid fa-users sidenav-icon'></i>                   
                 مدیریت پرسنل</Link>
             </li>
             <li >
                 <Link to={'/registerform'} >
-                <i className='fa-regular fa-user sidenav-icon'></i>     
+                <i className='fa-solid fa-user'></i>     
                 ثبت پرسنل جدید </Link>
             </li>
             <li >
-                <a href="#">
+                <Link href="#">
                 <i className='fa-regular fa-user sidenav-icon'></i>     
-                مدیریت فرمها</a>
+                مدیریت فرمها</Link>
             </li><li >
                 <a href="#">
                 <i className='fa-regular fa-user sidenav-icon'></i>     

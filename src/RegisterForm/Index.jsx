@@ -1,6 +1,4 @@
 import React from 'react';
-import { useEffect } from 'react';
-import { sidenav } from '../Utils/sidenav';
 import RegisterForm from './RegisterForm'
 
 
