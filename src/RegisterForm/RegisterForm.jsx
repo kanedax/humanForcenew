@@ -16,7 +16,7 @@ const RegisterForm = () => {
     return (
         <Formik
             initialValues={initialValues}
-            onSubmit={(values, actions) => onSubmit(values, actions)}
+            onSubmit={(values) => onSubmit(values)}
             validationSchema={validationSchema}
         >
             {

@@ -21,9 +21,10 @@ export const initialValues = {
     IsArmy: false,
 }
 export const onSubmit = async (values)=>{
+    console.log(values);
     try {
         let formData = new FormData();
-        formData.append("UserId" , values.userId)
+        // formData.append("UserId" , values.userId)
         formData.append("Avatar" , values.avatar)
         formData.append("Name" , values.name)
         formData.append("Family" , values.family)
@@ -50,10 +51,7 @@ export const onSubmit = async (values)=>{
 }
 export const validationSchema = Yup.object({
     Avatar : Yup.mixed()
-    .required('لطفا این قسمت را پر کنید')
-    .test("filesize" , "حجم فایل نمیتواند از 100 کیلو بایت بیشتر باشد"
-     , value=> value && value.size <= (100*1024))
-    .test("format" , "فرمت فایل باید jpg باشد" , value=> value && value.type === "image/jpg"),
+    .required('لطفا این قسمت را پر کنید'),
     Name: Yup.string()
         .required("لطفا این قسمت را پر کنید")
         .matches(/^(?=.*[\u0600-\u06FF])/, "فقط حروف فارسی"),

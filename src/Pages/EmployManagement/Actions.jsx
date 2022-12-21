@@ -5,7 +5,7 @@ import { EditPersonelContext } from "../../Context/EditPersonelContext";
 
 
 const Action = ({ rowData }) => {
-    const { editId, setEditId } = useContext(EditPersonelContext)
+    const { setEditId } = useContext(EditPersonelContext)
     return (
         <>
             <i className="fas fa-project-diagram pointer blue-text accent-3 table-icon"

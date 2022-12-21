@@ -13,14 +13,14 @@ const EditTable = () => {
     const [editPersonel, setEditPersonel] = useState(null);
     const [reInitialValues, setReinitialValues] = useState(null);
     const navigate = useNavigate();
-
+    
     const handleGetSingleUser = async () => {
         try {
             const res = await getSingleUser(editId)
             if (res.status == 200) {
                 const oldPersonel = res.data.data
-                setEditPersonel(oldPersonel)
-                console.log(editPersonel);
+                console.log(oldPersonel);
+                setEditPersonel(oldPersonel);
             }
         } catch (error) {
             Alert("متاسفم", "کارمند مورد نظر یافت نشد", "warning")
@@ -57,10 +57,10 @@ const EditTable = () => {
 
     return (
         <Formik
-            initialValues={reInitialValues || initialValues}
-            onSubmit={(values, actions) => onSubmit(values, actions, editId)}
-            validationSchema={validationSchema}
-            enableReinitialize
+        initialValues={reInitialValues || initialValues}
+        onSubmit={(values, actions) => onSubmit(values, actions, editId)}
+        validationSchema={validationSchema}
+        enableReinitialize
         >
             {
                 (formik) => {

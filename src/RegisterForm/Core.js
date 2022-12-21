@@ -20,8 +20,7 @@ export const initialValues = {
     description: "",
 
 }
- export const onSubmit = async (values, actions, editId) => {
-    console.log(values);
+ export const onSubmit = async (values, actions) => {
     try {
             const res = await registerService(values);
             if (res.status == 200) {

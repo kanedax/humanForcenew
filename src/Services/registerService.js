@@ -5,6 +5,6 @@ export const registerService = (values)=>{
     return httpServices('/Users', 'post', values)
 }
 
-export const editSingleUser = (values)=>{
-    return  httpServicesPut('/Users', 'put', values)
+export const editSingleUser = (formData)=>{
+    return  httpServicesPut('/Users', 'put', formData)
 }
