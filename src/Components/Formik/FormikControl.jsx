@@ -1,8 +1,11 @@
+import DatePickerNew from "../DatePickerNew"
 import Checkbox from "./Checkbox"
+import File from "./File"
 import Input from "./Input"
 import Input1 from "./Input1"
 import Select from "./Select"
 import Switch from "./Switch"
+import TextArea from "./TextArea"
 
 
 const FormikControl = (props) => {
@@ -17,6 +20,12 @@ const FormikControl = (props) => {
             return <Select {...props} />
         case 'switch':
             return <Switch {...props} />
+        case 'datepicker':
+            return <DatePickerNew {...props} />
+        case 'file':
+            return <File {...props} />
+        case 'textarea':
+            return <TextArea {...props} />
         default:
             return null
     }

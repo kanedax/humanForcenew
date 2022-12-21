@@ -1,14 +1,22 @@
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { EditPersonelContext } from "../../Context/EditPersonelContext";
+
 
 
 const Action = ({ rowData }) => {
+    const { editId, setEditId } = useContext(EditPersonelContext)
     return (
         <>
             <i className="fas fa-project-diagram pointer blue-text accent-3 table-icon"
                 title="زیرمجموعه">
             </i>
-            <i className="fas fa-edit pointer yellow-text accent-3 table-icon"
-                title="ویرایش دسته">
-            </i>
+            <Link className="fas fa-edit pointer yellow-text accent-3 table-icon"
+                title="ویرایش پرسنل"
+                to={'/editemploy'}
+                onClick={() => setEditId(rowData.id)}
+            >
+            </Link>
             <i className="fas fa-list pointer green-text accent-3 table-icon "
                 title="افزودن ویژگی">
             </i>

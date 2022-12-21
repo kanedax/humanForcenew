@@ -1,18 +1,18 @@
 import axios from "axios"
 import Config from './Config.json'
 
-const httpServices = (url, method, data=null)=>{
+const httpServicesPut = (url, method, formData)=>{
     const tokenInfo = JSON.parse(localStorage.getItem("loginToken"))
     return axios({
         url: Config.onlineApi+url,
         method,
-        data,
+        formData,
         headers:{
             Authorization : tokenInfo ? `Bearer ${tokenInfo.data.token}` : null,
-            "Content-Type" : "application/json",
+            "Content-Type" : "multipart/form-data",
         },
     });
 
 }
 
-export default httpServices
+export default httpServicesPut

@@ -4,6 +4,8 @@ import DropDownItems from "./DropDownItems";
 import SidenavItems from "./SidenavItems";
 
 const Header = () => {
+    const token = JSON.parse(localStorage.getItem("loginToken"))
+    const fullname = token.data.fullName
     useEffect(() => {
         sidenav();
     }, []);
@@ -20,7 +22,7 @@ const Header = () => {
                 <div className='avatar'></div>
                 <SidenavItems />
             </ul>
-            <a className='dropdown-trigger btn  dropdown-btn' href='#' data-target='dropdown1'>خانم فرزانه آزاد</a>
+            <a className='dropdown-trigger btn  dropdown-btn' href='#' data-target='dropdown1'>{fullname}</a>
             <ul id='dropdown1' className='dropdown-content'>
                 <DropDownItems />
             </ul>

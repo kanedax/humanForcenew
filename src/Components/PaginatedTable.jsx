@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Waiting from './Waiting';
 
-const PaginatedTable = ({ children, data, dataInfo, additionalField, numOfPages, searchParams, loading }) => {
+const PaginatedTable = ({ children, data, dataInfo, additionalField, numOfPages, searchParams, loading}) => {
 
     const [initData, setInitData] = useState(data)
     const [tableData, setTableData] = useState([]);
@@ -31,9 +32,6 @@ const PaginatedTable = ({ children, data, dataInfo, additionalField, numOfPages,
 
     return (
         <div className='table-search-container'>
-            <div className='table-add-new-person'>
-                <i className='fas fa-plus'></i>
-            </div>
             <div className="search-container">
                 <div className="search-child">
                     <div className="input-field">

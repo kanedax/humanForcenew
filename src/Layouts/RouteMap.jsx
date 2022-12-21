@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router';
 import Dashoard from '../Pages/Dashboard/Dashoard';
+import EditTable from '../Pages/EditUsers/EditTable';
 import EmployManagement from '../Pages/EmployManagement/EmployManagement';
 import Logout from '../Pages/Login/Logout';
 import RegisterForm from '../RegisterForm/RegisterForm'
@@ -15,6 +16,7 @@ const RouteMap = () => {
                 <Route path='/logout' element={<Logout/>}/>
                 <Route path='/registerform' element={<RegisterForm/>}/>
                 <Route path='/employmanagement' element={<EmployManagement/>}/>
+                <Route path='/editemploy' element={<EditTable/>}/>
             </Routes>
         </div>
     );

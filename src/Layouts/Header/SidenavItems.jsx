@@ -10,11 +10,6 @@ const SidenavItems = () => {
                 مدیریت پرسنل</Link>
             </li>
             <li >
-                <Link to={'/registerform'} >
-                <i className='fa-solid fa-user'></i>     
-                ثبت پرسنل جدید </Link>
-            </li>
-            <li >
                 <Link href="#">
                 <i className='fa-regular fa-user sidenav-icon'></i>     
                 مدیریت فرمها</Link>

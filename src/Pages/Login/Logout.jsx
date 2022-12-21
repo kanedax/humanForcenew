@@ -19,7 +19,6 @@ const Logout = () => {
             }
             
         } catch (error) {
-            console.log(error.message);
             Alert("خروج", "عملیات خروج با موفقیت انجام شد", "warning")
             setLoading(false);
         }

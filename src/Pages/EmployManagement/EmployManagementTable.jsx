@@ -5,6 +5,7 @@ import PaginatedTable from '../../Components/PaginatedTable';
 import { getAllUsers } from '../../Services/getUsers';
 import { JalaliConvert } from '../../Utils/JalaliConverter';
 import Action from './Actions';
+import AddNewEmploy from './AddNewEmploy';
 
 const EmployManagementTable = () => {
     const params = useParams();
@@ -20,13 +21,11 @@ const EmployManagementTable = () => {
             const res = await getAllUsers();
             if(res.status == 200 ){
                 setData(res.data.data)
-                console.log(res.data.data);
 
             }else{
                 Alert("مشکل", res.data.metaData.message, "error");
             }
         } catch (error) {
-            console.log(error);
             Alert("مشکل", "ایراد از سمت سرور", "warning");
             
         }
@@ -55,10 +54,11 @@ const EmployManagementTable = () => {
     ];
 
     const searchParams = {
-        title: "جستجو",
-        placeholder: "نام پرسنل مورد نظر را جستجو کنید",
-        searchField: "name",
+        // title: "جستجو",
+        placeholder: "جستجو با شماره پرسنلی ",
+        searchField: "personalCode",
     }
+
     return (
         <>
             <PaginatedTable
@@ -69,8 +69,8 @@ const EmployManagementTable = () => {
                 searchParams={searchParams}
                 loading={loading}
                 >
-                {/* <AddCategory setForceRender={setForceRender} /> */}
             </PaginatedTable>
+            <AddNewEmploy/>
         </>
     );
 }
