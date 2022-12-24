@@ -158,7 +158,7 @@ html {
 
 .form-container {
     width: 70vw;
-    height: 70vh;
+    height: 80vh;
     background-color: snow;
     box-shadow: 0px 0px 15px rgb(182, 182, 182);
     border-radius: 8px;
@@ -198,6 +198,54 @@ html {
 .back-btn{
     margin-right: 2%;
 }
+.form-part-date{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.form-part-date span{
+    z-index: 100;
+}
+.icon-date{
+    color: #219b8f;
+    font-size: 2.5vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.icon-date i {
+    cursor: pointer;
+}
+.day-container{
+    width: 5vw !important;
+}
+.month-container{
+    width: 7vw !important;
+}
+.year-container{
+    width: 6vw !important;
+}
+/* .JDatePicker{
+    z-index: 100 !important;
+    width: 30vw !important;
+    background-color: #8fb1ad !important;
+}
+.JC-days{
+    background-color: #219b8f !important;
+    margin-top: 1vh;
+    border-radius: 5px !important;
+    padding: 2px !important;
+}
+.day-items{
+    border-radius: 5px !important;
+}
+.current-date{
+    background-color: snow;
+} */
 /* registerForm end */
 /* pagination table start */
 .table-search-container{

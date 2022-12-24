@@ -13,14 +13,15 @@ const EditTable = () => {
     const [editPersonel, setEditPersonel] = useState(null);
     const [reInitialValues, setReinitialValues] = useState(null);
     const navigate = useNavigate();
-    
+
     const handleGetSingleUser = async () => {
         try {
             const res = await getSingleUser(editId)
             if (res.status == 200) {
                 const oldPersonel = res.data.data
-                console.log(oldPersonel);
                 setEditPersonel(oldPersonel);
+                console.log(editPersonel); 
+                // problem here.the value does not apply to editpersonel
             }
         } catch (error) {
             Alert("متاسفم", "کارمند مورد نظر یافت نشد", "warning")
@@ -30,8 +31,8 @@ const EditTable = () => {
         if (editId) handleGetSingleUser();
         else setEditPersonel(null);
     }, [editId]);
-    useEffect(()=>{
-        if(editPersonel){
+    useEffect(() => {
+        if (editPersonel) {
             setReinitialValues({
                 Avatar: editPersonel.avatarName,
                 Name: editPersonel.name,
@@ -50,17 +51,17 @@ const EditTable = () => {
                 IsArmy: editPersonel.isArmy,
             })
         }
-    },[editPersonel])
+    }, [editPersonel])
     useEffect(() => {
         sidenav()
     }, []);
 
     return (
         <Formik
-        initialValues={reInitialValues || initialValues}
-        onSubmit={(values, actions) => onSubmit(values, actions, editId)}
-        validationSchema={validationSchema}
-        enableReinitialize
+            initialValues={reInitialValues || initialValues}
+            onSubmit={(values, actions) => onSubmit(values, actions, editId)}
+            validationSchema={validationSchema}
+            enableReinitialize
         >
             {
                 (formik) => {
@@ -115,7 +116,8 @@ const EditTable = () => {
                                         placeholder="شماره موبایل"
                                     />
                                     <FormikControl
-                                        control="input1"
+                                        formik={formik}
+                                        control="datepicker"
                                         name="DateOfBirth"
                                         type="text"
                                         className="validate"
@@ -154,13 +156,13 @@ const EditTable = () => {
                                         options={military}
                                     />
                                     <FormikControl
+                                        control="textarea"
+                                        name="Description"
+                                    />
+                                    <FormikControl
                                         control="file"
                                         title="عکس پرسنلی"
                                         name="Avatar"
-                                    />
-                                    <FormikControl
-                                        control="textarea"
-                                        name="Description"
                                     />
                                     <FormikControl
                                         control="switch"

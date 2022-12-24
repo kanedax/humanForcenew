@@ -1,6 +1,7 @@
 import { Alert } from "../Components/Alert/Alert";
-import { editSingleUser, registerService } from "../Services/registerService";
+import { registerService } from "../Services/registerService";
 import * as Yup from 'yup';
+import { convertToMiladi } from "../Utils/JalaliConverter";
 
 export const initialValues = {
     name: "",
@@ -21,6 +22,14 @@ export const initialValues = {
 
 }
  export const onSubmit = async (values, actions) => {
+    console.log(values);
+    values = {
+        ...values,
+        dateOfBirth : convertToMiladi(values.dateOfBirth),
+        degree : parseInt(values.degree),
+        gender : parseInt(values.gender),
+        militaryStatus : parseInt(values.militaryStatus),
+    }
     try {
             const res = await registerService(values);
             if (res.status == 200) {
@@ -28,7 +37,8 @@ export const initialValues = {
                 actions.resetForm();
             }
     } catch (error) {
-        Alert('متاسفم', 'خطا از سمت سرور', 'error')
+        var errorMessage = JSON.parse(error.request.response)
+        Alert('متاسفم', errorMessage.MetaData.Message, 'error')
 
     }
 

@@ -9,7 +9,7 @@ const httpServicesPut = (url, method, formData)=>{
         formData,
         headers:{
             Authorization : tokenInfo ? `Bearer ${tokenInfo.data.token}` : null,
-            "Content-Type" : "multipart/form-data",
+            'Content-Type': 'multipart/form-data',
         },
     });
 

@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router';
 import { educations, gender, initialValues, military, onSubmit, validationSchema } from './Core';
 
 
-
 const RegisterForm = () => {
     const navigate = useNavigate();
 
@@ -21,14 +20,15 @@ const RegisterForm = () => {
         >
             {
                 (formik) => {
+                    console.log(formik);
                     return (
                         <Form className='main-section'>
                             <div className="form-container">
                                 <div className="row">
                                     <div className='title-container'>
-                                        
-                                         <h4>ثبت اولیه پرسنل</h4>
-                                        
+
+                                        <h4>ثبت اولیه پرسنل</h4>
+
                                         <i className='fas fa-user'></i>
                                     </div>
                                     <FormikControl
@@ -37,7 +37,6 @@ const RegisterForm = () => {
                                         type="text"
                                         className="validate"
                                         placeholder="نام"
-                                        label="نام"
                                     />
                                     <FormikControl
                                         control="input1"
@@ -75,11 +74,9 @@ const RegisterForm = () => {
                                         placeholder="شماره موبایل"
                                     />
                                     <FormikControl
-                                        control="input1"
+                                        formik={formik}
+                                        control="datepicker"
                                         name="dateOfBirth"
-                                        type="text"
-                                        className="validate"
-                                        placeholder="تاریخ تولد"
                                     />
                                     <FormikControl
                                         control="input1"
@@ -100,18 +97,32 @@ const RegisterForm = () => {
                                         name="degree"
                                         label="مدرک تحصیلی"
                                         options={educations}
+                                        className="validate"
                                     />
                                     <FormikControl
                                         control="select"
                                         name="gender"
                                         label="جنسیت"
                                         options={gender}
+                                        className="validate"
                                     />
                                     <FormikControl
                                         control="select"
                                         name="militaryStatus"
                                         label="وضعیت نظام وظیفه"
                                         options={military}
+                                        className="validate"
+                                    />
+                                    <FormikControl
+                                        control="input1"
+                                        name="Email"
+                                        type="text"
+                                        className="validate"
+                                        placeholder="ایمیل"
+                                    />
+                                    <FormikControl
+                                        control="textarea"
+                                        name="Description"
                                     />
                                     <FormikControl
                                         control="switch"
