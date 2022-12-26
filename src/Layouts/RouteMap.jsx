@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router';
+import PasswordIndex from '../Pages/ChangePassword/PasswordIndex';
 import Dashoard from '../Pages/Dashboard/Dashoard';
 import EditTable from '../Pages/EditUsers/EditTable';
 import EmployManagement from '../Pages/EmployManagement/EmployManagement';
@@ -17,6 +18,7 @@ const RouteMap = () => {
                 <Route path='/registerform' element={<RegisterForm/>}/>
                 <Route path='/employmanagement' element={<EmployManagement/>}/>
                 <Route path='/editemploy' element={<EditTable/>}/>
+                <Route path='/changepassword' element={<PasswordIndex/>}/>
             </Routes>
         </div>
     );

@@ -122,7 +122,7 @@ const RegisterForm = () => {
                                     />
                                     <FormikControl
                                         control="textarea"
-                                        name="Description"
+                                        name="description"
                                     />
                                     <FormikControl
                                         control="switch"

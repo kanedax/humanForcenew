@@ -206,9 +206,12 @@ html {
     position: absolute;
     top: 0;
     right: 0;
+    cursor: pointer;
 }
-.form-part-date span{
-    z-index: 100;
+.form-data-span{
+    z-index: 100 !important;
+    background-color: red;
+    cursor: pointer !important;
 }
 .icon-date{
     color: #219b8f;
@@ -219,6 +222,9 @@ html {
 }
 .icon-date i {
     cursor: pointer;
+    position: absolute;
+    right: 20vw;
+    top: 1vh;
 }
 .day-container{
     width: 5vw !important;
@@ -229,25 +235,7 @@ html {
 .year-container{
     width: 6vw !important;
 }
-/* .JDatePicker{
-    z-index: 100 !important;
-    width: 30vw !important;
-    background-color: #8fb1ad !important;
-}
-.JC-days{
-    background-color: #219b8f !important;
-    margin-top: 1vh;
-    border-radius: 5px !important;
-    padding: 2px !important;
-}
-.day-items{
-    border-radius: 5px !important;
-}
-.current-date{
-    background-color: snow;
-} */
-/* registerForm end */
-/* pagination table start */
+
 .table-search-container{
     width: 85vw;
     height: 70vh;
@@ -259,7 +247,6 @@ html {
     justify-content: center;
     position: relative;
 }
-
 .search-container{
     width: 30vw;
     height: 10vh;
@@ -332,3 +319,26 @@ tr {
     cursor: pointer;
 }
 /* pagination table end */
+/* passwordManagement start */
+.password-container{
+    width: 40vw;
+    height: 50vh;
+    box-shadow: 0px 0px 18px rgb(173, 173, 173);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: snow;
+    border-radius: 8px;
+}
+.password-title{
+    color: #26a69a;
+    text-align: center;
+}
+.back-button{
+    margin-right: 2vw;
+}
+.button-container{
+    margin-top: 1vh;
+}
+/* passwordManagement end */

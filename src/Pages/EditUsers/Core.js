@@ -1,12 +1,14 @@
 import * as Yup from 'yup';
 import { Alert } from '../../Components/Alert/Alert';
 import { editSingleUser } from '../../Services/registerService';
+import { convertToMiladi } from '../../Utils/JalaliConverter';
 
 export const initialValues = {
-    UserId : "",
-    Avatar:"",
+    UserId: "",
+    Avatar: "",
     Name: "",
     Family: "",
+    Description: "",
     PersonalCode: "",
     NationalId: "",
     IdCode: "",
@@ -17,42 +19,30 @@ export const initialValues = {
     Email: "",
     Gender: 0,
     MilitaryStatus: 0,
-    Description: "",
     IsArmy: false,
 }
-export const onSubmit = async (values)=>{
+export const onSubmit = async (values, editId) => {
     console.log(values);
+    values = {
+        ...values,
+        DateOfBirth: convertToMiladi(values.DateOfBirth),
+        Description: "تست",
+    }
     try {
-        let formData = new FormData();
-        // formData.append("UserId" , values.userId)
-        formData.append("Avatar" , values.Avatar)
-        formData.append("Name" , values.Name)
-        formData.append("Family" , values.Family)
-        formData.append("PersonalCode" , values.PersonalCode)
-        formData.append("NationalId" , values.NationalId)
-        formData.append("IdCode" , values.IdCode)
-        formData.append("MobileNumber" , values.MobileNumber)
-        formData.append("DateOfBirth" , values.DateOfBirth)
-        formData.append("Degree" , values.Degree)
-        formData.append("Major" , values.Major)
-        formData.append("Email" , values.Email)
-        formData.append("Gender" , values.Gender)
-        formData.append("MilitaryStatus" , values.MilitaryStatus)
-        formData.append("Description" , values.Description)
-        formData.append("IsArmy" , values.IsArmy)
-        console.log(formData);
-        const res = await editSingleUser(formData)
-        if(res.status == 200){
-            Alert('انجام شد', 'ویرایش با موفقیت انجام شد', 'success')
-
+        const res = await editSingleUser(values)
+        console.log(res);
+        const log = res.data.metaData
+        if (res.status == 200) {
+            Alert('انجام شد',log.message, 'success')
         }
     } catch (error) {
+        console.log(error.response);
         Alert('متاسفم', 'خطا از سمت سرور', 'error')
     }
 }
 export const validationSchema = Yup.object({
-    Avatar : Yup.mixed()
-    .required('لطفا این قسمت را پر کنید'),
+    Avatar: Yup.mixed()
+        .required('لطفا این قسمت را پر کنید'),
     Name: Yup.string()
         .required("لطفا این قسمت را پر کنید")
         .matches(/^(?=.*[\u0600-\u06FF])/, "فقط حروف فارسی"),
@@ -86,13 +76,14 @@ export const validationSchema = Yup.object({
     MilitaryStatus: Yup.string()
         .required("لطفا این قسمت را پر کنید"),
     IsArmy: Yup.boolean(),
+
 })
- export const gender = [
+export const gender = [
     { id: 0, value: "لطفا انتخاب کنید" },
     { id: 1, value: "مرد" },
     { id: 2, value: "زن" },
 ]
- export const educations = [
+export const educations = [
     { id: 0, value: "لطفا انتخاب کنید" },
     { id: 1, value: "دیپلم" },
     { id: 2, value: "فوق دیپلم" },

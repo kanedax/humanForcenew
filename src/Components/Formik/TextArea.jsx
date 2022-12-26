@@ -1,10 +1,16 @@
+import { ErrorMessage, FastField } from 'formik';
 import React from 'react';
+import FormikError from './FormikError';
 
-const TextArea = () => {
+const TextArea = (name) => {
     return (
         <div className="input-field col s4">
-            <textarea className="materialize-textarea" data-length="60"></textarea>
-            <label >توضیحات</label>
+            <FastField as="textarea" 
+            className="materialize-textarea" 
+            name={name}
+            ></FastField>
+            <label>توضیحات</label>
+            <ErrorMessage name={name} component={FormikError} />
           </div>
     );
 }

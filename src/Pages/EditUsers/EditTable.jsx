@@ -5,6 +5,7 @@ import { Alert } from '../../Components/Alert/Alert';
 import FormikControl from '../../Components/Formik/FormikControl';
 import { EditPersonelContext } from '../../Context/EditPersonelContext';
 import { getSingleUser } from '../../Services/getUsers';
+import { JalaliConvert } from '../../Utils/JalaliConverter';
 import { sidenav } from '../../Utils/sidenav';
 import { educations, gender, initialValues, military, onSubmit, validationSchema } from './Core';
 
@@ -19,21 +20,20 @@ const EditTable = () => {
             const res = await getSingleUser(editId)
             if (res.status == 200) {
                 const oldPersonel = res.data.data
+                console.log(res.data.data);
                 setEditPersonel(oldPersonel);
-                console.log(editPersonel); 
-                // problem here.the value does not apply to editpersonel
             }
         } catch (error) {
             Alert("متاسفم", "کارمند مورد نظر یافت نشد", "warning")
         }
     }
     useEffect(() => {
-        if (editId) handleGetSingleUser();
-        else setEditPersonel(null);
-    }, [editId]);
+        handleGetSingleUser();
+    }, []);
     useEffect(() => {
         if (editPersonel) {
             setReinitialValues({
+                UserId : editPersonel.id,
                 Avatar: editPersonel.avatarName,
                 Name: editPersonel.name,
                 Family: editPersonel.family,
@@ -41,12 +41,12 @@ const EditTable = () => {
                 NationalId: editPersonel.nationalId,
                 IdCode: editPersonel.idCode,
                 MobileNumber: editPersonel.mobileNumber,
-                DateOfBirth: editPersonel.dateOfBirth,
+                DateOfBirth: JalaliConvert(editPersonel.dateOfBirth),
                 Degree: editPersonel.degree,
                 Major: editPersonel.major,
                 Email: editPersonel.email,
                 Gender: editPersonel.gender,
-                MilitaryStatus: editPersonel.militarystatus,
+                MilitaryStatus : parseInt(editPersonel.militaryStatus),
                 Description: editPersonel.description,
                 IsArmy: editPersonel.isArmy,
             })
@@ -59,7 +59,7 @@ const EditTable = () => {
     return (
         <Formik
             initialValues={reInitialValues || initialValues}
-            onSubmit={(values, actions) => onSubmit(values, actions, editId)}
+            onSubmit={(values, actions, editId) => onSubmit(values, actions, editId)}
             validationSchema={validationSchema}
             enableReinitialize
         >
@@ -124,10 +124,11 @@ const EditTable = () => {
                                         placeholder="تاریخ تولد"
                                     />
                                     <FormikControl
-                                        control="select"
-                                        name="Degree"
-                                        label="مدرک تحصیلی"
-                                        options={educations}
+                                        control="input1"
+                                        name="Email"
+                                        type="text"
+                                        className="validate"
+                                        placeholder="ایمیل"
                                     />
                                     <FormikControl
                                         control="input1"
@@ -137,11 +138,10 @@ const EditTable = () => {
                                         placeholder="رشته تحصیلی"
                                     />
                                     <FormikControl
-                                        control="input1"
-                                        name="Email"
-                                        type="text"
-                                        className="validate"
-                                        placeholder="ایمیل"
+                                        control="select"
+                                        name="Degree"
+                                        label="مدرک تحصیلی"
+                                        options={educations}
                                     />
                                     <FormikControl
                                         control="select"
@@ -156,13 +156,10 @@ const EditTable = () => {
                                         options={military}
                                     />
                                     <FormikControl
-                                        control="textarea"
-                                        name="Description"
-                                    />
-                                    <FormikControl
                                         control="file"
                                         title="عکس پرسنلی"
                                         name="Avatar"
+                                        formik={formik}
                                     />
                                     <FormikControl
                                         control="switch"
