@@ -29,7 +29,6 @@ const EmployManagementTable = () => {
             Alert("مشکل", "ایراد از سمت سرور", "warning");
             
         }
-        
     }
 
     useEffect(() => {

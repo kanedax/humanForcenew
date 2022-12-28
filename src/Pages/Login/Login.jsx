@@ -35,7 +35,8 @@ const onSubmit = async (values, submitMethods, navigate) => {
 
 const validationSchema = Yup.object({
     personalCode: Yup.string()
-        .required("لطفا این قسمت را پر کنید"),
+        .required("لطفا این قسمت را پر کنید")
+        .matches(/^(?=.*[0-9])(?=.{9,9})/, "طول اعداد نباید کمتر یا بیشتر از نه رقم باشد"),
 
     password: Yup.string()
         .required("لطفا این قسمت را پر کنید")
