@@ -51,6 +51,9 @@ html {
  .pointer{
     cursor: pointer;
  }
+ .sized-btn{
+    width: 12% !important;
+ }
 
 /* login start */
 .login-container {
@@ -340,5 +343,44 @@ tr {
 }
 .button-container{
     margin-top: 1vh;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    
+}
+.button-container button{
+    width: 20%;
 }
 /* passwordManagement end */
+/* isArmy start */
+.isarmymainform{
+    width: 60vw;
+    height: 50vh;
+    box-shadow: 0px 0px 18px rgb(173, 173, 173);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: snow;
+    border-radius: 8px;
+    position: relative;
+}
+.isarmytitlecontainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 3vh;
+
+}
+.isarmytitlecontainer h4{
+    color: #26a69a;
+    text-align: center;
+    font-size: 2.5vw;
+}
+.isarmytitlecontainer i{
+    color: #26a69a;
+    font-size: 2.5vw;
+}
+/* isArmy end */

@@ -4,6 +4,7 @@ import PasswordIndex from '../Pages/ChangePassword/PasswordIndex';
 import Dashoard from '../Pages/Dashboard/Dashoard';
 import EditTable from '../Pages/EditUsers/EditTable';
 import EmployManagement from '../Pages/EmployManagement/EmployManagement';
+import IsArmyIndex from '../Pages/IsArmy/IsArmyIndex';
 import Logout from '../Pages/Login/Logout';
 import RegisterForm from '../RegisterForm/RegisterForm'
 
@@ -19,6 +20,7 @@ const RouteMap = () => {
                 <Route path='/employmanagement' element={<EmployManagement/>}/>
                 <Route path='/editemploy' element={<EditTable/>}/>
                 <Route path='/changepassword' element={<PasswordIndex/>}/>
+                <Route path='/isarmy' element={<IsArmyIndex/>}/>
             </Routes>
         </div>
     );

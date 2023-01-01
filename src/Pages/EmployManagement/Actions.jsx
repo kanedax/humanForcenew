@@ -8,9 +8,12 @@ const Action = ({ rowData }) => {
     const { setEditId } = useContext(EditPersonelContext)
     return (
         <>
-            <i className="fas fa-project-diagram pointer blue-text accent-3 table-icon"
-                title="زیرمجموعه">
-            </i>
+            <Link className="fas fa-project-diagram pointer blue-text accent-3 table-icon"
+                title="ثبت و ویرایش اطلاعات نظامی"
+                to={'/isarmy'}
+                onClick={()=> setEditId(rowData.id)}
+                >
+            </Link>
             <Link className="fas fa-edit pointer yellow-text accent-3 table-icon"
                 title="ویرایش پرسنل"
                 to={'/editemploy'}

@@ -21,7 +21,7 @@ export const initialValues = {
     MilitaryStatus: 0,
     IsArmy: false,
 }
-export const onSubmit = async (values, editId) => {
+export const onSubmit = async (values) => {
     console.log(values);
     values = {
         ...values,

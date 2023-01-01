@@ -59,7 +59,7 @@ const EditTable = () => {
     return (
         <Formik
             initialValues={reInitialValues || initialValues}
-            onSubmit={(values, actions, editId) => onSubmit(values, actions, editId)}
+            onSubmit={(values, actions) => onSubmit(values, actions)}
             validationSchema={validationSchema}
             enableReinitialize
         >
@@ -170,10 +170,10 @@ const EditTable = () => {
                                         name="IsArmy"
                                     />
                                     <div className='form-part col s12 submit-container'>
-                                        <button className='btn waves-effect' type='submit'>
+                                        <button className='btn waves-effect sized-btn' type='submit'>
                                             <i>ثبت</i>
                                         </button>
-                                        <button className='btn waves-effect back-btn' type='button'
+                                        <button className='btn waves-effect back-btn sized-btn' type='button'
                                             onClick={() => navigate(-1)}
                                         >
                                             <i>بازگشت</i>

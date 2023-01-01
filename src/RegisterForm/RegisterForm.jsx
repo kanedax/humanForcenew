@@ -26,9 +26,7 @@ const RegisterForm = () => {
                             <div className="form-container">
                                 <div className="row">
                                     <div className='title-container'>
-
                                         <h4>ثبت اولیه پرسنل</h4>
-
                                         <i className='fas fa-user'></i>
                                     </div>
                                     <FormikControl
@@ -129,14 +127,15 @@ const RegisterForm = () => {
                                         type="checkbox"
                                         label1="هست"
                                         label2="نیست"
+                                        label3='پرسنل نیروهای مسلح'
                                         className="lever"
                                         name="isArmy"
                                     />
                                     <div className='form-part col s12 submit-container'>
-                                        <button className='btn waves-effect' type='submit'>
+                                        <button className='btn waves-effect sized-btn' type='submit'>
                                             <i>ثبت</i>
                                         </button>
-                                        <button className='btn waves-effect back-btn' type='button'
+                                        <button className='btn waves-effect back-btn sized-btn' type='button'
                                             onClick={() => navigate(-1)}
                                         >
                                             <i>بازگشت</i>
