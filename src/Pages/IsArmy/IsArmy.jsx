@@ -1,19 +1,29 @@
-import { Form, Formik, useFormikContext } from 'formik';
-import React, { useContext, useEffect, useState } from 'react';
+import { Form, Formik} from 'formik';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import FormikControl from '../../Components/Formik/FormikControl';
 import { sidenav } from '../../Utils/sidenav';
-// import { initialValues, militaryClass, militaryDegree, onSubmit, validationSchema } from './Core';
 import * as Yup from 'yup';
 import { Alert } from '../../Components/Alert/Alert';
 import { EditArmyUser, GetSingleArmyUser, IsArmyService } from '../../Services/IsArmy';
 
+const validationSchema = Yup.object({
+    militaryClass: Yup.string()
+        .required("لطفا این قسمت را پر کنید"),
+    militaryDegree: Yup.string()
+        .required("لطفا این قسمت را پر کنید"),
+    isRetired: Yup.boolean(),
+    lastOccupation: Yup.string()
+        .matches(/^(?=.*[\u0600-\u06FF])/, "فقط حروف فارسی"),
+})
 
 const IsArmy = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const { state } = location;
+    const reState = (state.person.armyFeatures[0].id)
     useEffect(() => {
+        console.log(state.person);
         sidenav();
     }, []);
     const initialValues = {
@@ -24,9 +34,9 @@ const IsArmy = () => {
         isRetired: true
     }
     const onSubmit = async (values) => {
-        if (reInitialValues.id) {
+        if (reState) {
             try {
-                const res = await EditArmyUser(reInitialValues.id)
+                const res = await EditArmyUser(state.person.id)
                 if (res.status == 200) {
                     Alert("انجام شد", res.data.metaData.message, "success")
                 } else {
@@ -54,15 +64,6 @@ const IsArmy = () => {
             }
         }
     }
-    const validationSchema = Yup.object({
-        militaryClass: Yup.string()
-            .required("لطفا این قسمت را پر کنید"),
-        militaryDegree: Yup.string()
-            .required("لطفا این قسمت را پر کنید"),
-        isRetired: Yup.boolean(),
-        lastOccupation: Yup.string()
-            .matches(/^(?=.*[\u0600-\u06FF])/, "فقط حروف فارسی"),
-    })
     const militaryClass = [
         { id: 0, value: "لطفا انتخاب کنید" },
         { id: 1, value: "راهور" },
@@ -79,8 +80,6 @@ const IsArmy = () => {
         if (state.person.armyFeatures) {
             try {
                 const res = await GetSingleArmyUser(state.person.id)
-                const userArmy = res.data.data
-                setReInitialValues(userArmy)
             } catch (error) {
                 Alert("متاسفم", error.response.data.metaData.message, "error")
             }
@@ -92,15 +91,16 @@ const IsArmy = () => {
         handleGetSingleUserArmy()
     }, [])
     useEffect(() => {
-        if (reInitialValues) {
+        if (state.person.id) {
             setReInitialValues({
                 userId: state?.person?.id,
-                militaryClass: reInitialValues.militaryClass,
-                militaryDegree: reInitialValues.militaryDegree,
-                lastOccupation: reInitialValues.lastOccupation,
-                isRetired: reInitialValues.isRetired,
+                militaryClass: state.person.armyFeatures[0].militaryClass,
+                militaryDegree: state.person.armyFeatures[0].militaryDegree,
+                lastOccupation: state.person.armyFeatures[0].lastOccupation,
+                isRetired: state.person.armyFeatures[0].isRetired,
             })
         }
+        console.log(reInitialValues);
     }, [])
 
     return (
