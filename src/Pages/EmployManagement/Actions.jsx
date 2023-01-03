@@ -1,19 +1,26 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { EditPersonelContext } from "../../Context/EditPersonelContext";
 
 
 
 const Action = ({ rowData }) => {
     const { setEditId } = useContext(EditPersonelContext)
+    const navigate = useNavigate()
     return (
         <>
-            <Link className="fas fa-project-diagram pointer blue-text accent-3 table-icon"
+            <i className="fas fa-project-diagram pointer blue-text accent-3 table-icon"
                 title="ثبت و ویرایش اطلاعات نظامی"
                 to={'/isarmy'}
-                onClick={()=> setEditId(rowData.id)}
+                onClick={()=> 
+                    navigate("/isarmy", {
+                        state : {
+                            person : rowData,
+                        },
+                    })
+                }
                 >
-            </Link>
+            </i>
             <Link className="fas fa-edit pointer yellow-text accent-3 table-icon"
                 title="ویرایش پرسنل"
                 to={'/editemploy'}

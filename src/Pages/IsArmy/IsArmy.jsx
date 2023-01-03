@@ -1,9 +1,8 @@
-import { Form, Formik } from 'formik';
+import { Form, Formik, useFormikContext } from 'formik';
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import FormikControl from '../../Components/Formik/FormikControl';
 import { sidenav } from '../../Utils/sidenav';
-import { EditPersonelContext } from '../../Context/EditPersonelContext';
 // import { initialValues, militaryClass, militaryDegree, onSubmit, validationSchema } from './Core';
 import * as Yup from 'yup';
 import { Alert } from '../../Components/Alert/Alert';
@@ -11,24 +10,29 @@ import { IsArmyService } from '../../Services/IsArmy';
 
 
 const initialValues = {
-    userId : "",
+    userId : 0,
     militaryClass : 0 ,
     militaryDegree : 0 ,
     lastOccupation : "" ,
     isRetired : true
 }
-const onSubmit = async ({ values, editId}) => {
-    console.log(values);
-    console.log(editId);
+const onSubmit = async (values, location) => {
+    values = {
+        ...values , 
+        militaryClass : parseInt(values.militaryClass),
+        militaryDegree : parseInt(values.militaryDegree),
+    }
+    console.log(location);
     try {
-        const res = await IsArmyService(editId, values)
+        const res = await IsArmyService(values)
         if(res.status == 200){
-            Alert("انجام شد", "", "success")
+            console.log(res);
+            Alert("انجام شد", res.data.metaData.message, "success")
         }else{
             Alert("متاسفم", "" , "warning")
         }
     } catch (error) {
-        Alert("متاسفم", "", "error")
+        Alert("متاسفم", error.response.data.metaData.message, "error")
     }
 }
 const validationSchema = Yup.object({
@@ -53,23 +57,22 @@ const militaryDegree = [
 
 const IsArmy = () => {
     const navigate = useNavigate()
-    const { editId } = useContext(EditPersonelContext);
-    const [armyUserId , setArmyUserId] = useState()
+    const location = useLocation()
 
     useEffect(() => {
+        console.log(location);
         sidenav();
     }, []);
     
     return (
         <Formik
         initialValues={initialValues}
-        onSubmit={(values, editId) => onSubmit(values, editId)}
+        onSubmit={(values, location) => onSubmit(values, location)}
         validationSchema={validationSchema}
         >
             {
                 (formik) => {
                     console.log(formik.values);
-                    console.log(editId);
                     return (
                         <Form className='isarmymainform'>
                             <div className='row'>

@@ -22,7 +22,6 @@ export const initialValues = {
     IsArmy: false,
 }
 export const onSubmit = async (values) => {
-    console.log(values);
     values = {
         ...values,
         DateOfBirth: convertToMiladi(values.DateOfBirth),
@@ -36,7 +35,6 @@ export const onSubmit = async (values) => {
             Alert('انجام شد',log.message, 'success')
         }
     } catch (error) {
-        console.log(error.response);
         Alert('متاسفم', 'خطا از سمت سرور', 'error')
     }
 }
