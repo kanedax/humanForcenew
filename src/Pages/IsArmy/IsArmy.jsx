@@ -34,8 +34,13 @@ const IsArmy = () => {
     }
     const onSubmit = async (values) => {
         if (reState) {
+            values = {
+                ...values,
+                militaryClass: parseInt(values.militaryClass),
+                militaryDegree: parseInt(values.militaryDegree),
+            }
             try {
-                const res = await EditArmyUser(state.person.armyFeatures[0])
+                const res = await EditArmyUser(values)
                 if (res.status == 200) {
                     Alert("انجام شد", res.data.metaData.message, "success")
                 } else {
@@ -76,7 +81,7 @@ const IsArmy = () => {
     const [reInitialValues, setReInitialValues] = useState();
 
     const handleGetSingleUserArmy = async () => {
-        if (state.person.armyFeatures) {
+        if (state.person.armyFeatures[0].id) {
             try {
                 const res = await GetSingleArmyUser(state.person.id)
             } catch (error) {
