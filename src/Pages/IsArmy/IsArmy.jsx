@@ -23,7 +23,6 @@ const IsArmy = () => {
     const { state } = location;
     const reState = (state.person.armyFeatures[0].id)
     useEffect(() => {
-        console.log(state.person);
         sidenav();
     }, []);
     const initialValues = {
@@ -36,7 +35,7 @@ const IsArmy = () => {
     const onSubmit = async (values) => {
         if (reState) {
             try {
-                const res = await EditArmyUser(state.person.id)
+                const res = await EditArmyUser(state.person.armyFeatures[0])
                 if (res.status == 200) {
                     Alert("انجام شد", res.data.metaData.message, "success")
                 } else {
@@ -91,11 +90,11 @@ const IsArmy = () => {
         handleGetSingleUserArmy()
     }, [])
     useEffect(() => {
-        if (state.person.id) {
+        if (state.person.armyFeatures[0]) {
             setReInitialValues({
                 userId: state?.person?.id,
                 militaryClass: state.person.armyFeatures[0].militaryClass,
-                militaryDegree: state.person.armyFeatures[0].militaryDegree,
+                militaryDegree:state.person.armyFeatures[0].militaryDegree,
                 lastOccupation: state.person.armyFeatures[0].lastOccupation,
                 isRetired: state.person.armyFeatures[0].isRetired,
             })
