@@ -6,78 +6,123 @@ import { sidenav } from '../../Utils/sidenav';
 // import { initialValues, militaryClass, militaryDegree, onSubmit, validationSchema } from './Core';
 import * as Yup from 'yup';
 import { Alert } from '../../Components/Alert/Alert';
-import { IsArmyService } from '../../Services/IsArmy';
+import { EditArmyUser, GetSingleArmyUser, IsArmyService } from '../../Services/IsArmy';
 
-
-const initialValues = {
-    userId : 0,
-    militaryClass : 0 ,
-    militaryDegree : 0 ,
-    lastOccupation : "" ,
-    isRetired : true
-}
-const onSubmit = async (values, location) => {
-    values = {
-        ...values , 
-        militaryClass : parseInt(values.militaryClass),
-        militaryDegree : parseInt(values.militaryDegree),
-    }
-    console.log(location);
-    try {
-        const res = await IsArmyService(values)
-        if(res.status == 200){
-            console.log(res);
-            Alert("انجام شد", res.data.metaData.message, "success")
-        }else{
-            Alert("متاسفم", "" , "warning")
-        }
-    } catch (error) {
-        Alert("متاسفم", error.response.data.metaData.message, "error")
-    }
-}
-const validationSchema = Yup.object({
-    militaryClass : Yup.string()
-    .required("لطفا این قسمت را پر کنید"),
-    militaryDegree : Yup.string()
-    .required("لطفا این قسمت را پر کنید"),
-    isRetired: Yup.boolean(),
-    lastOccupation : Yup.string()
-    .matches(/^(?=.*[\u0600-\u06FF])/, "فقط حروف فارسی"),
-})
-const militaryClass = [
-    { id: 0, value: "لطفا انتخاب کنید" },
-    { id: 1, value: "راهور" },
-    { id: 2, value: "نیروی انتظامی" }
-]
-const militaryDegree = [
-    { id: 0, value: "لطفا انتخاب کنید" },
-    { id: 1, value: "سرهنگ" },
-    { id: 2, value: "ستوان" }
-]
 
 const IsArmy = () => {
     const navigate = useNavigate()
     const location = useLocation()
-
+    const { state } = location;
     useEffect(() => {
-        console.log(location);
         sidenav();
     }, []);
-    
+    const initialValues = {
+        userId: state?.person?.id,
+        militaryClass: 0,
+        militaryDegree: 0,
+        lastOccupation: "",
+        isRetired: true
+    }
+    const onSubmit = async (values) => {
+        if (reInitialValues.id) {
+            try {
+                const res = await EditArmyUser(reInitialValues.id)
+                if (res.status == 200) {
+                    Alert("انجام شد", res.data.metaData.message, "success")
+                } else {
+                    Alert("متاسفم", "ایراد رخ داده است", "warning")
+                }
+            } catch (error) {
+                Alert("متاسفم", error.response.data.metaData.message, "error")
+            }
+        } else {
+            values = {
+                ...values,
+                militaryClass: parseInt(values.militaryClass),
+                militaryDegree: parseInt(values.militaryDegree),
+            }
+
+            try {
+                const res = await IsArmyService(values)
+                if (res.status === 200) {
+                    Alert("انجام شد", res.data.metaData.message, "success")
+                } else {
+                    Alert("متاسفم", "ایراد رخ داده است", "warning")
+                }
+            } catch (error) {
+                Alert("متاسفم", error.response.data.metaData.message, "error")
+            }
+        }
+    }
+    const validationSchema = Yup.object({
+        militaryClass: Yup.string()
+            .required("لطفا این قسمت را پر کنید"),
+        militaryDegree: Yup.string()
+            .required("لطفا این قسمت را پر کنید"),
+        isRetired: Yup.boolean(),
+        lastOccupation: Yup.string()
+            .matches(/^(?=.*[\u0600-\u06FF])/, "فقط حروف فارسی"),
+    })
+    const militaryClass = [
+        { id: 0, value: "لطفا انتخاب کنید" },
+        { id: 1, value: "راهور" },
+        { id: 2, value: "نیروی انتظامی" }
+    ]
+    const militaryDegree = [
+        { id: 0, value: "لطفا انتخاب کنید" },
+        { id: 1, value: "سرهنگ" },
+        { id: 2, value: "ستوان" }
+    ]
+    const [reInitialValues, setReInitialValues] = useState();
+
+    const handleGetSingleUserArmy = async () => {
+        if (state.person.armyFeatures) {
+            try {
+                const res = await GetSingleArmyUser(state.person.id)
+                const userArmy = res.data.data
+                setReInitialValues(userArmy)
+            } catch (error) {
+                Alert("متاسفم", error.response.data.metaData.message, "error")
+            }
+        } else {
+            setReInitialValues(null)
+        }
+    }
+    useEffect(() => {
+        handleGetSingleUserArmy()
+    }, [])
+    useEffect(() => {
+        if (reInitialValues) {
+            setReInitialValues({
+                userId: state?.person?.id,
+                militaryClass: reInitialValues.militaryClass,
+                militaryDegree: reInitialValues.militaryDegree,
+                lastOccupation: reInitialValues.lastOccupation,
+                isRetired: reInitialValues.isRetired,
+            })
+        }
+    }, [])
+
     return (
         <Formik
-        initialValues={initialValues}
-        onSubmit={(values, location) => onSubmit(values, location)}
-        validationSchema={validationSchema}
+            initialValues={reInitialValues || initialValues}
+            onSubmit={(values) => onSubmit(values)}
+            validationSchema={validationSchema}
+            enableReinitialize
         >
             {
                 (formik) => {
-                    console.log(formik.values);
                     return (
                         <Form className='isarmymainform'>
                             <div className='row'>
                                 <div className='isarmytitlecontainer'>
-                                    <h4>ثبت و ویرایش اطلاعات پرسنل نظامی</h4>
+                                    {
+                                        reInitialValues ? (
+                                            <h4>ویرایش اطلاعات پرسنل نظامی</h4>
+                                        ) : (
+                                            <h4>ثبت اطلاعات پرسنل نظامی</h4>
+                                        )
+                                    }
                                     <i className="fa-solid fa-person-military-pointing"></i>
                                 </div>
                                 <FormikControl
@@ -113,9 +158,6 @@ const IsArmy = () => {
                                 <div className='form-part col s12 submit-container'>
                                     <button className='btn waves-effect sized-btn' type='submit'>
                                         <i>ثبت</i>
-                                    </button>
-                                    <button className='btn waves-effect back-btn' type='button'>
-                                        <i>ویرایش</i>
                                     </button>
                                     <button className='btn waves-effect back-btn' type='button'
                                         onClick={() => navigate(-1)}
