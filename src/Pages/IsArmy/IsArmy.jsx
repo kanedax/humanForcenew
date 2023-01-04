@@ -21,7 +21,7 @@ const IsArmy = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const { state } = location;
-    const reState = (state.person.armyFeatures[0].id)
+    const reState = (state?.person?.armyFeatures[0]?.id)
     useEffect(() => {
         sidenav();
     }, []);
@@ -81,7 +81,7 @@ const IsArmy = () => {
     const [reInitialValues, setReInitialValues] = useState();
 
     const handleGetSingleUserArmy = async () => {
-        if (state.person.armyFeatures[0].id) {
+        if (state?.person?.armyFeatures[0]?.id) {
             try {
                 const res = await GetSingleArmyUser(state.person.id)
             } catch (error) {
@@ -104,7 +104,6 @@ const IsArmy = () => {
                 isRetired: state.person.armyFeatures[0].isRetired,
             })
         }
-        console.log(reInitialValues);
     }, [])
 
     return (

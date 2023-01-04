@@ -166,6 +166,7 @@ const EditTable = () => {
                                         type="checkbox"
                                         label1="هست"
                                         label2="نیست"
+                                        label3="پرسنل نیروهای مسلح"
                                         className="lever"
                                         name="IsArmy"
                                     />

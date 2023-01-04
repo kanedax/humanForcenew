@@ -10,9 +10,9 @@ const SidenavItems = () => {
                 مدیریت پرسنل</Link>
             </li>
             <li >
-                <a href="#">
+                {/* <Link to={'/useraddress'}>
                 <i className='fa-regular fa-user sidenav-icon'></i>     
-                مدیریت فرمها</a>
+                 آدرس</Link> */}
             </li><li >
                 <a href="#">
                 <i className='fa-regular fa-user sidenav-icon'></i>     

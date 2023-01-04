@@ -384,3 +384,96 @@ tr {
     font-size: 2.5vw;
 }
 /* isArmy end */
+/* useroption start */
+.second-nav{
+    position: fixed;
+    top: 7.1vh;
+    background-color: transparent;
+    box-shadow: unset;
+}
+.second-nav-item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.second-nav-item i{
+    color: black;
+    border-radius: 5px;
+    font-size: 1.3vw;
+    cursor: pointer;
+    padding-right: 1vw;
+    padding-left: 1vw;
+    font-style: unset;
+}
+.second-nav-item li :hover{
+    background-color: rgba(0, 0, 0, 0.144);
+}
+/* useroption end */
+/* useroptionview start */
+.option-view{
+    height: 75vh;
+    width: 80vw;
+    background-color: snow;
+    box-shadow: 0px 0px 18px rgb(173, 173, 173);
+    border-radius: 8px;
+}
+/* useroptionview end */
+/* address form start */
+.address-form-container{
+    height: 60vh;
+    width: 60vw;
+    background-color: snow;
+    box-shadow: 0px 0px 18px rgb(173, 173, 173);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.address-title-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3vh;
+}
+.address-title-container h4{
+    color: #26a69a;
+    text-align: center;
+    font-size: 2.5vw;
+}
+.address-title-container i{
+    color: #26a69a;
+    font-size: 2.5vw;
+}
+/* address form end */
+/* specification start */
+.specification-container{
+    height: 65vh;
+    width: 60vw;
+    background-color: snow;
+    box-shadow: 0px 0px 18px rgb(173, 173, 173);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.specification-title-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5vh;
+}
+.specification-title-container h4{
+    color: #26a69a;
+    text-align: center;
+    font-size: 2.5vw;
+}
+.specification-title-container i{
+    color: #26a69a;
+    font-size: 2.5vw;
+}
+/* specification end */

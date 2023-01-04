@@ -28,7 +28,15 @@ const Action = ({ rowData }) => {
             >
             </Link>
             <i className="fas fa-list pointer green-text accent-3 table-icon "
-                title="افزودن ویژگی">
+                title="ویرایش و افزودن مشخصات"
+                to={'/useroptions'}
+                onClick={()=>
+                    navigate('/useroptions', {
+                        state : {
+                            person : rowData ,
+                        },
+                    })}
+                >
             </i>
             <i className="fas fa-times pointer red-text accent-3 table-icon"
                 title="حذف پرسنل">
